@@ -1,0 +1,2283 @@
+<!doctype html>
+<html lang="id" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ahmad Fadhil Fardian — Portfolio</title>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: Oswald (Display Reference), Plus Jakarta Sans, Poppins, Montserrat & Cormorant Garamond (Logo Monogram) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,600;0,700;1,600&family=Montserrat:wght@400;500;600;700;800&family=Oswald:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              jakarta: ['"Plus Jakarta Sans"', "sans-serif"],
+              poppins: ['"Poppins"', "sans-serif"],
+              montserrat: ['"Montserrat"', "sans-serif"],
+              display: ['"Oswald"', '"Montserrat"', "sans-serif"],
+              monogram: ['"Cormorant Garamond"', "serif"],
+            },
+            colors: {
+              obsidian: "#111215",
+              charcoal: "#17191e",
+              panel: "#1b1d23",
+              panelHover: "#21242c",
+              silver: "#e5e7eb",
+              muted: "#9ca3af",
+              dim: "#6b7280",
+            },
+          },
+        },
+      };
+    </script>
+
+    <style>
+      :root {
+        --bg-main: #111215;
+        --bg-card: #181a20;
+        --border-subtle: rgba(255, 255, 255, 0.09);
+        --border-hover: rgba(255, 255, 255, 0.24);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Plus Jakarta Sans", "Poppins", sans-serif;
+        background-color: var(--bg-main);
+        color: #f3f4f6;
+        overflow-x: hidden;
+        background-image:
+          radial-gradient(
+            circle at 85% 8%,
+            rgba(255, 255, 255, 0.05) 0%,
+            transparent 40%
+          ),
+          radial-gradient(
+            circle at 12% 45%,
+            rgba(255, 255, 255, 0.03) 0%,
+            transparent 45%
+          );
+      }
+
+      /* Architectural Cards & Borders */
+      .ref-card {
+        background: linear-gradient(
+          165deg,
+          rgba(30, 33, 40, 0.85) 0%,
+          rgba(20, 22, 27, 0.95) 100%
+        );
+        border: 1px solid var(--border-subtle);
+        border-radius: 10px;
+        position: relative;
+        overflow: hidden;
+        transition:
+          border-color 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+          box-shadow 0.35s ease;
+      }
+
+      .ref-card:hover {
+        border-color: var(--border-hover);
+        box-shadow: 0 18px 40px -15px rgba(0, 0, 0, 0.7);
+      }
+
+      /* Interactive Cursor Spotlight Effect */
+      .spotlight-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(
+          500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+          rgba(255, 255, 255, 0.055),
+          transparent 40%
+        );
+        opacity: 0;
+        transition: opacity 0.4s ease;
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .spotlight-card:hover::before {
+        opacity: 1;
+      }
+
+      /* Hero Section Desktop vs Mobile Background Logic */
+      .hero-wrapper {
+        position: relative;
+        background-color: #111215;
+      }
+
+      @media (min-width: 768px) {
+        .hero-wrapper {
+          background-image:
+            linear-gradient(
+              90deg,
+              #111215 0%,
+              rgba(17, 18, 21, 0.94) 40%,
+              rgba(17, 18, 21, 0.35) 68%,
+              rgba(17, 18, 21, 0.65) 100%
+            ),
+            linear-gradient(
+              180deg,
+              rgba(17, 18, 21, 0.3) 0%,
+              rgba(17, 18, 21, 0) 35%,
+              #111215 100%
+            ),
+            url("bg-hero.jpg");
+          background-size: cover;
+          background-position: right center;
+          background-repeat: no-repeat;
+        }
+      }
+
+      /* Metallic Display Headline */
+      .headline-metallic {
+        background: linear-gradient(
+          180deg,
+          #ffffff 0%,
+          #d1d5db 65%,
+          #9ca3af 100%
+        );
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        line-height: 0.94;
+        letter-spacing: -0.015em;
+      }
+
+      /* Diagonal Metallic Beam for Bottom CTA Card (Matching Reference Footer CTA) */
+      .cta-metallic-beam {
+        background: linear-gradient(
+          112deg,
+          rgba(22, 24, 30, 0.96) 0%,
+          rgba(28, 31, 38, 0.92) 22%,
+          rgba(255, 255, 255, 0.16) 33%,
+          rgba(255, 255, 255, 0.04) 42%,
+          rgba(20, 22, 27, 0.96) 58%,
+          rgba(18, 20, 25, 0.98) 100%
+        );
+        border: 1px solid rgba(255, 255, 255, 0.12);
+      }
+
+      /* Section Header Divider Line */
+      .section-rule {
+        height: 1px;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.14) 0%,
+          rgba(255, 255, 255, 0.04) 100%
+        );
+      }
+
+      /* Scroll Reveal Animations */
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition:
+          opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1),
+          transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .delay-100 {
+        transition-delay: 100ms;
+      }
+      .delay-200 {
+        transition-delay: 200ms;
+      }
+      .delay-300 {
+        transition-delay: 300ms;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #111215;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #2e323d;
+        border-radius: 3px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #4b5563;
+      }
+    </style>
+  </head>
+  <body class="antialiased selection:bg-white selection:text-obsidian">
+    <!-- TOP ARCHIVAL BAR -->
+   
+
+    <!-- NAVBAR (100% Reference Alignment) -->
+    <header
+      class="sticky top-0 z-50 bg-[#111215]/85 backdrop-blur-md border-b border-white/[0.07]"
+    >
+      <div
+        class="max-w-6xl mx-auto px-6 h-20 flex items-center justify-between"
+      >
+        <!-- Left Monogram + Full Name -->
+        <a href="#" class="flex items-center gap-3 group">
+          <span
+            class="font-monogram text-3xl sm:text-4xl font-semibold tracking-tight text-white leading-none"
+          >
+            AF
+          </span>
+          <span class="hidden sm:inline-block h-4 w-[1px] bg-white/15"></span>
+          <span
+            class="font-montserrat text-xs font-semibold tracking-[0.18em] uppercase text-gray-300 group-hover:text-white transition"
+          >
+            A. Fadhil Fardian.
+          </span>
+        </a>
+
+        <!-- Center/Right Nav Links -->
+        <div class="flex items-center gap-6 lg:gap-9">
+          <nav
+            class="hidden md:flex items-center gap-7 font-montserrat text-[11px] font-medium uppercase tracking-[0.18em] text-gray-400"
+          >
+            <a href="#tentang" class="hover:text-white transition"
+              >01. Tentang</a
+            >
+            <a href="#pendidikan" class="hover:text-white transition"
+              >02. Sekolah</a
+            >
+            <a href="#keahlian" class="hover:text-white transition"
+              >03. Keahlian</a
+            >
+            <a href="#arsip" class="hover:text-white transition"
+              >04. Arsip &amp; Foto</a
+            >
+          </nav>
+
+          <a
+            href="#connect"
+            class="px-4 py-2 bg-[#e5e7eb] hover:bg-white text-obsidian font-montserrat font-semibold text-[11px] uppercase tracking-[0.14em] rounded-full inline-flex items-center gap-2 transition duration-200 shadow-sm"
+          >
+            <span>KIRIM SURAT</span>
+            <svg
+              class="w-3.5 h-3.5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+    </header>
+
+    <!-- HERO SECTION (Desktop: bg-hero.jpg on Right, Text on Left | Mobile: Plain Dark BG + Framed Photo Div) -->
+    <section class="hero-wrapper border-b border-white/10 overflow-hidden">
+      <div
+        class="max-w-6xl mx-auto px-6 pt-12 pb-16 md:py-24 lg:py-28 relative"
+      >
+        <!-- Decorative Architectural Arc & Star on Desktop Right (Matching Reference Image) -->
+        <div class="hidden md:block pointer-events-none">
+          <svg
+            class="absolute right-6 top-8 w-52 h-52 text-white/15"
+            viewBox="0 0 200 200"
+            fill="none"
+          >
+            <path
+              d="M 120 10 A 90 90 0 0 1 170 165"
+              stroke="currentColor"
+              stroke-width="1"
+            />
+          </svg>
+          <!-- 4-Point Star Icon -->
+          <svg
+            class="absolute right-14 top-1/2 -translate-y-4 w-5 h-5 text-gray-300/80 animate-pulse"
+            viewBox="0 0 24 24"
+            fill="currentColor"
+          >
+            <path
+              d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z"
+            />
+          </svg>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-12 gap-10 items-end relative z-10"
+        >
+          <!-- Left Hero Text Banner -->
+          <div class="md:col-span-8 lg:col-span-7 space-y-6 reveal active">
+            <h1
+              class="font-display text-6xl sm:text-7xl lg:text-[92px] font-bold uppercase headline-metallic"
+            >
+              AHMAD FADHIL<br />PORTOFOLIO
+            </h1>
+
+            <p
+              class="text-gray-300/90 font-jakarta text-sm sm:text-base leading-relaxed max-w-xl pt-1"
+            >
+              Lulusan D3 Manajemen Informatika Universitas Riau dengan IPK 3.55.
+              Berpengalaman Kerja Praktik di BPN Rokan Hulu dalam penataan data,
+              jaringan LAN, serta perancangan sistem berbasis web.
+            </p>
+
+            <!-- Hero CTA Buttons (Matching Reference Buttons) -->
+            <div
+              class="pt-3 flex flex-wrap items-center gap-5 font-montserrat text-[11px] font-semibold uppercase tracking-[0.15em]"
+            >
+              <a
+                href="#arsip"
+                class="px-6 py-3.5 bg-[#e5e7eb] hover:bg-white text-obsidian rounded-[4px] inline-flex items-center gap-3 transition duration-200 shadow-lg"
+              >
+                <span>Buka Arsip Foto &amp; Proyek</span>
+                <svg
+                  class="w-3.5 h-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="7" x2="17" y2="17"></line>
+                  <polyline points="17 7 17 17 7 17"></polyline>
+                </svg>
+              </a>
+
+              <a
+                href="https://www.linkedin.com/in/cvahmadfadhil"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="px-3 py-3 text-gray-300 hover:text-white inline-flex items-center gap-2.5 transition"
+              >
+                <span>Profil LinkedIn</span>
+                <svg
+                  class="w-3.5 h-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+
+          <!-- Mobile-Only Framed Hero Photo Container (Replaces BG on Small Screens) -->
+          <div class="md:hidden reveal delay-100">
+            <div class="ref-card p-3 bg-[#16181e] border border-white/15">
+              <div
+                class="relative w-full h-72 sm:h-80 overflow-hidden rounded-[6px] bg-[#1f222a]"
+              >
+                <img
+                  src="bg-hero.jpg"
+                  alt="Ahmad Fadhil Fardian"
+                  class="w-full h-full object-cover object-right"
+                  onerror="
+                    this.onerror = null;
+                    this.src = 'foto.JPG';
+                  "
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-[#111215] via-transparent to-transparent opacity-70"
+                ></div>
+                <div
+                  class="absolute bottom-3 left-3 right-3 flex items-center justify-between text-[11px] font-montserrat uppercase tracking-[0.2em] text-gray-200"
+                >
+                  <span>~ Fadhil, 2026 ~</span>
+                  <span class="text-gray-400">UNRI &bull; 3.55</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Right Hero Floating Label on Desktop (Matching "AVAILABLE FOR FREELANCE PROJECTS" in Reference) -->
+          <div
+            class="hidden md:flex md:col-span-4 lg:col-span-5 flex-col items-end justify-end text-right reveal delay-200"
+          >
+            <div
+              class="space-y-1 bg-[#111215]/70 backdrop-blur-md px-4 py-3 rounded-lg border border-white/10"
+            >
+              <span
+                class="font-montserrat text-[10px] uppercase tracking-[0.22em] text-gray-400 block"
+              >
+                ~ Fadhil, 2026 ~
+              </span>
+              <div
+                class="font-display text-2xl font-bold tracking-wider uppercase text-white"
+              >
+                D3 MANAJEMEN INFORMATIKA
+              </div>
+              <a
+                href="#tentang"
+                class="inline-flex items-center gap-1.5 font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-300 hover:text-white transition"
+              >
+                <span>UNIVERSITAS RIAU</span>
+                <svg
+                  class="w-3 h-3"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4-COLUMN STATS / HIGHLIGHT BAR (100% Reference Grid Structure) -->
+    <section
+      class="max-w-6xl mx-auto px-6 -mt-6 md:-mt-10 relative z-20 reveal"
+    >
+      <div
+        class="ref-card spotlight-card bg-[#17191f]/95 backdrop-blur-xl grid grid-cols-2 lg:grid-cols-4 divide-y lg:divide-y-0 lg:divide-x divide-white/10"
+      >
+        <!-- Stat 1 -->
+        <div
+          class="p-6 sm:p-8 text-center flex flex-col items-center justify-center"
+        >
+          <svg
+            class="w-5 h-5 text-gray-400 mb-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+          >
+            <path
+              d="M12 2L14.5 9.5L22 12L14.5 14.5L12 22L9.5 14.5L2 12L9.5 9.5L12 2Z"
+            />
+          </svg>
+          <div
+            class="font-montserrat text-3xl sm:text-4xl font-semibold text-white tracking-tight"
+          >
+            3.55
+          </div>
+          <div
+            class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2"
+          >
+            IPK Universitas Riau
+          </div>
+        </div>
+
+        <!-- Stat 2 -->
+        <div
+          class="p-6 sm:p-8 text-center flex flex-col items-center justify-center"
+        >
+          <svg
+            class="w-5 h-5 text-gray-400 mb-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+          >
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          <div
+            class="font-montserrat text-3xl sm:text-4xl font-semibold text-white tracking-tight"
+          >
+            2+
+          </div>
+          <div
+            class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2"
+          >
+            Proyek Web BPN (2025)
+          </div>
+        </div>
+
+        <!-- Stat 3 -->
+        <div
+          class="p-6 sm:p-8 text-center flex flex-col items-center justify-center"
+        >
+          <svg
+            class="w-5 h-5 text-gray-400 mb-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+          >
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+          </svg>
+          <div
+            class="font-montserrat text-3xl sm:text-4xl font-semibold text-white tracking-tight"
+          >
+            13
+          </div>
+          <div
+            class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2"
+          >
+            Kompetensi &amp; Alat
+          </div>
+        </div>
+
+        <!-- Stat 4 -->
+        <div
+          class="p-6 sm:p-8 text-center flex flex-col items-center justify-center"
+        >
+          <svg
+            class="w-5 h-5 text-gray-400 mb-3"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.6"
+          >
+            <circle cx="12" cy="12" r="10" />
+            <line x1="2" y1="12" x2="22" y2="12" />
+            <path
+              d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+            />
+          </svg>
+          <div
+            class="font-montserrat text-3xl sm:text-4xl font-semibold text-white tracking-tight"
+          >
+            06
+          </div>
+          <div
+            class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-400 mt-2"
+          >
+            Arsip Dokumentasi
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAGIAN 01: CATATAN BIOGRAFI (TENTANG SAYA + FOTO.JPG ARCHIVAL FRAME) -->
+    <section id="tentang" class="max-w-6xl mx-auto px-6 pt-20 pb-12 reveal">
+      <div
+        class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/10 mb-8"
+      >
+        <div class="flex items-center gap-3">
+          <h2
+            class="font-montserrat text-sm font-bold uppercase tracking-[0.22em] text-white"
+          >
+            Catatan Biografi
+          </h2>
+        </div>
+
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+        <!-- Left Portrait Card Keeping Original foto.JPG Path -->
+        <div
+          class="lg:col-span-4 ref-card spotlight-card p-5 flex flex-col justify-between"
+        >
+          <div
+            class="relative h-72 lg:h-64 w-full overflow-hidden rounded-[6px] bg-[#12141a] border border-white/10 group cursor-pointer"
+            onclick="
+              openLightbox(
+                'foto.JPG',
+                'Ahmad Fadhil Fardian — ~ Fadhil, 2026 ~',
+              )
+            "
+          >
+            <img
+              src="foto.JPG"
+              alt="Ahmad Fadhil Fardian"
+              class="w-full h-full object-cover object-top transition duration-500 group-hover:scale-105"
+              onerror="
+                this.src =
+                  'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=600&auto=format&fit=crop&q=80'
+              "
+            />
+            <div
+              class="absolute inset-0 bg-gradient-to-t from-[#111215]/90 via-transparent to-transparent"
+            ></div>
+            <div
+              class="absolute bottom-3 left-3.5 right-3.5 flex items-center justify-between"
+            >
+              <span
+                class="font-montserrat text-[11px] uppercase tracking-[0.2em] text-gray-200"
+                >~ Fadhil, 2026 ~</span
+              >
+              <span
+                class="w-7 h-7 rounded-full border border-white/25 bg-black/40 flex items-center justify-center text-white"
+              >
+                <svg
+                  class="w-3.5 h-3.5"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="2"
+                >
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </div>
+          </div>
+
+          <div
+            class="pt-4 mt-4 border-t border-white/10 flex items-center justify-between text-xs font-montserrat text-gray-400"
+          >
+            <span>A. Fadhil Fardian.</span>
+            <span class="uppercase tracking-widest text-[10px] text-gray-300"
+              >D3 MI UNRI</span
+            >
+          </div>
+        </div>
+
+        <!-- Right Biography Text Content -->
+        <div
+          class="lg:col-span-8 ref-card spotlight-card p-7 sm:p-9 flex flex-col justify-between space-y-6"
+        >
+          <div
+            class="space-y-4 text-gray-300 font-jakarta text-sm sm:text-base leading-relaxed"
+          >
+            <p>
+              Saya merupakan lulusan D3 Manajemen Informatika dari Universitas
+              Riau yang memiliki ketertarikan mendalam dalam bidang pengembangan
+              aplikasi web serta dukungan operasional teknologi informasi.
+            </p>
+            <p>
+              Memiliki pengalaman Kerja Praktik di Badan Pertanahan Nasional
+              (BPN) Kabupaten Rokan Hulu. Terbiasa menangani pengelolaan data,
+              administrasi perkantoran, instalasi dasar jaringan LAN,
+              troubleshooting perangkat komputer, serta berpartisipasi dalam
+              perancangan sistem informasi berbasis web.
+            </p>
+          </div>
+
+          <div
+            class="p-4 sm:p-5 rounded-lg bg-white/[0.03] border border-white/10 flex items-center gap-4"
+          >
+            <svg
+              class="w-5 h-5 text-gray-400 shrink-0"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path
+                d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z"
+              />
+            </svg>
+            <p class="font-jakarta text-xs sm:text-sm italic text-gray-200">
+              “Saya percaya, setiap pengalaman adalah langkah menuju versi
+              terbaik dari diri saya”
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAGIAN 04: ARSIP DOKUMENTASI & PROYEK (100% Matching "FEATURED WORK" 3-Column Card Grid in Reference) -->
+    <section id="arsip" class="max-w-6xl mx-auto px-6 py-14 reveal">
+      <!-- Section Header Matching "FEATURED WORK ---- EXPLORE ALL PROJECTS ->" -->
+      <div
+        class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-4 border-b border-white/10 mb-8"
+      >
+        <div>
+          <div class="flex items-center gap-3">
+            <h2
+              class="font-montserrat text-sm font-bold uppercase tracking-[0.22em] text-white"
+            >
+              Arsip Dokumentasi &amp; Proyek
+            </h2>
+          </div>
+      
+        </div>
+        <a
+          href="#green-policing"
+          class="inline-flex items-center gap-2 font-montserrat text-[11px] font-semibold uppercase tracking-[0.2em] text-gray-400 hover:text-white transition"
+        >
+          <span>LIHAT SEMUA ARSIP</span>
+          <svg
+            class="w-4 h-4"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </a>
+      </div>
+
+      <div class="space-y-14">
+        <!-- 1. MAGANG BPN ROKAN HULU -->
+        <div class="space-y-6">
+          <!-- BPN Header & Sub Proyek Web -->
+          <div class="ref-card spotlight-card p-6 sm:p-8 space-y-6">
+            <div
+              class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-5 gap-4"
+            >
+              <div>
+                <span
+                  class="font-montserrat text-[11px] text-gray-400 font-semibold uppercase tracking-[0.22em]"
+                  >Kerja Praktik (2025)</span
+                >
+                <h3
+                  class="font-jakarta text-xl sm:text-2xl font-bold text-white mt-1"
+                >
+                  Badan Pertanahan Nasional (BPN) Rokan Hulu
+                </h3>
+                <p class="text-sm text-gray-400 font-jakarta mt-0.5">
+                  Staf Pendukung Administrasi &amp; IT Operasional
+                </p>
+              </div>
+              <span
+                class="font-montserrat text-[11px] bg-white/[0.06] text-gray-200 px-3.5 py-1.5 rounded border border-white/15 uppercase tracking-[0.16em] font-semibold"
+              >
+                Riau, Indonesia
+              </span>
+            </div>
+
+            <!-- 6 Poin Deskripsi BPN (100% Utuh) -->
+            <ul
+              class="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-3 text-gray-300 text-xs sm:text-sm font-jakarta leading-relaxed"
+            >
+              <li class="flex items-start gap-2.5">
+                <span class="text-gray-500 font-montserrat text-xs mt-0.5"
+                  >01.</span
+                >
+                <span
+                  >Melakukan pengelolaan, verifikasi, dan pembaruan data
+                  operasional menggunakan Microsoft Excel.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-gray-500 font-montserrat text-xs mt-0.5"
+                  >02.</span
+                >
+                <span
+                  >Membantu pemasangan dan penataan kabel jaringan (LAN) untuk
+                  mendukung konektivitas komputer area kerja.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-gray-500 font-montserrat text-xs mt-0.5"
+                  >03.</span
+                >
+                <span
+                  >Melakukan pengecekan dasar terhadap koneksi jaringan dan
+                  perangkat komputer apabila terjadi kendala.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-gray-500 font-montserrat text-xs mt-0.5"
+                  >04.</span
+                >
+                <span
+                  >Membantu proses administrasi serta distribusi dokumen sesuai
+                  prosedur kerja (SOP).</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5">
+                <span class="text-gray-500 font-montserrat text-xs mt-0.5"
+                  >05.</span
+                >
+                <span
+                  >Berkolaborasi dengan pegawai dalam mendukung kelancaran
+                  aktivitas operasional kantor.</span
+                >
+              </li>
+              <li class="flex items-start gap-2.5 font-semibold text-white">
+                <span class="text-gray-300 font-montserrat text-xs mt-0.5"
+                  >06.</span
+                >
+                <span
+                  >Berpartisipasi dalam perancangan sistem informasi berbasis
+                  web sebagai proyek kerja praktik.</span
+                >
+              </li>
+            </ul>
+
+            <!-- Sub Proyek Web BPN (#1 & #2) -->
+            <div class="grid md:grid-cols-2 gap-4 pt-2">
+              <div
+                class="p-5 rounded-lg bg-white/[0.03] border border-white/10 hover:border-white/25 transition flex items-start justify-between gap-4"
+              >
+                <div>
+                  <span
+                    class="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400"
+                    >PROYEK WEB </span
+                  >
+                  <h4 class="font-jakarta text-base font-bold text-white mt-1">
+                    Sistem Informasi Manajemen Alur Berkas
+                  </h4>
+                  <p class="text-xs text-gray-400 mt-1 font-jakarta">
+                    Pelacakan dokumen dan alur berkas operasional kantor BPN.
+                  </p>
+                </div>
+                <span
+                  class="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-gray-300 shrink-0"
+                >
+                  <svg
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </div>
+
+              <div
+                class="p-5 rounded-lg bg-white/[0.03] border border-white/10 hover:border-white/25 transition flex items-start justify-between gap-4"
+              >
+                <div>
+                  <span
+                    class="font-montserrat text-[10px] font-bold uppercase tracking-[0.2em] text-gray-400"
+                    >PROYEK WEB </span
+                  >
+                  <h4 class="font-jakarta text-base font-bold text-white mt-1">
+                    Sistem Pelayanan &amp; Pengaduan (lapor_yuk)
+                  </h4>
+                  <p class="text-xs text-gray-400 mt-1 font-jakarta">
+                    Aplikasi web internal untuk pelaporan dan pengaduan pegawai.
+                  </p>
+                </div>
+                <span
+                  class="w-8 h-8 rounded-full border border-white/15 flex items-center justify-center text-gray-300 shrink-0"
+                >
+                  <svg
+                    class="w-3.5 h-3.5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                  >
+                    <line x1="7" y1="17" x2="17" y2="7"></line>
+                    <polyline points="7 7 17 7 17 17"></polyline>
+                  </svg>
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3 FOTO DOKUMENTASI MAGANG BPN (100% Matching Reference 3-Card Featured Work Layout) -->
+          <div>
+            <span
+              class="font-montserrat text-[11px] font-semibold text-gray-400 uppercase tracking-[0.2em] mb-4 block"
+            >
+              Arsip Foto BPN (2025):
+            </span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Foto BPN 1 -->
+              <div
+                class="ref-card spotlight-card group cursor-pointer h-[320px] flex flex-col justify-between p-5 relative"
+                onclick="
+                  openLightbox(
+                    'bpn-1.jpg',
+                    'Dokumentasi Arsip  — BPN Rokan Hulu',
+                  )
+                "
+              >
+                <img
+                  src="bpn-1.jpg"
+                  alt="BPN 1"
+                  class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-65 group-hover:opacity-80"
+                  onerror="
+                    this.src =
+                      'https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&auto=format&fit=crop&q=80'
+                  "
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-[#111215] via-[#111215]/45 to-transparent"
+                ></div>
+
+                <div class="relative z-10 flex justify-between items-center">
+                  <span
+                    class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-300 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10"
+                  >
+                    BPN ROKAN HULU
+                  </span>
+                </div>
+
+                <div
+                  class="relative z-10 flex items-end justify-between gap-4 pt-12"
+                >
+                  <div>
+                    <h4
+                      class="font-jakarta text-xl font-bold text-white leading-snug"
+                    >
+                      Dokumentasi<br />Arsip 
+                    </h4>
+                    <p
+                      class="font-montserrat text-[10px] uppercase tracking-[0.18em] text-gray-400 mt-2"
+                    >
+                      KERJA PRAKTIK (2025)<br />IT OPERASIONAL
+                    </p>
+                  </div>
+                  <span
+                    class="w-10 h-10 rounded-full border border-white/25 bg-black/40 group-hover:bg-white group-hover:text-obsidian flex items-center justify-center text-white transition duration-300 shrink-0"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Foto BPN 2 -->
+              <div
+                class="ref-card spotlight-card group cursor-pointer h-[320px] flex flex-col justify-between p-5 relative"
+                onclick="
+                  openLightbox(
+                    'bpn-2.jpg',
+                    'Dokumentasi Arsip  — BPN Rokan Hulu',
+                  )
+                "
+              >
+                <img
+                  src="bpn-2.jpg"
+                  alt="BPN 2"
+                  class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-65 group-hover:opacity-80"
+                  onerror="
+                    this.src =
+                      'https://images.unsplash.com/photo-1531482615713-2afd69097998?w=600&auto=format&fit=crop&q=80'
+                  "
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-[#111215] via-[#111215]/45 to-transparent"
+                ></div>
+
+                <div class="relative z-10 flex justify-between items-center">
+                  <span
+                    class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-300 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10"
+                  >
+                    BPN ROKAN HULU
+                  </span>
+                </div>
+
+                <div
+                  class="relative z-10 flex items-end justify-between gap-4 pt-12"
+                >
+                  <div>
+                    <h4
+                      class="font-jakarta text-xl font-bold text-white leading-snug"
+                    >
+                      Dokumentasi<br />Arsip 
+                    </h4>
+                    <p
+                      class="font-montserrat text-[10px] uppercase tracking-[0.18em] text-gray-400 mt-2"
+                    >
+                      KERJA PRAKTIK (2025)<br />JARINGAN LAN &amp; DATA
+                    </p>
+                  </div>
+                  <span
+                    class="w-10 h-10 rounded-full border border-white/25 bg-black/40 group-hover:bg-white group-hover:text-obsidian flex items-center justify-center text-white transition duration-300 shrink-0"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Foto BPN 3 -->
+              <div
+                class="ref-card spotlight-card group cursor-pointer h-[320px] flex flex-col justify-between p-5 relative"
+                onclick="
+                  openLightbox(
+                    'bpn-3.jpg',
+                    'Dokumentasi Arsip  — BPN Rokan Hulu',
+                  )
+                "
+              >
+                <img
+                  src="bpn-3.jpg"
+                  alt="BPN 3"
+                  class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-65 group-hover:opacity-80"
+                  onerror="
+                    this.src =
+                      'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&auto=format&fit=crop&q=80'
+                  "
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-[#111215] via-[#111215]/45 to-transparent"
+                ></div>
+
+                <div class="relative z-10 flex justify-between items-center">
+                  <span
+                    class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-300 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10"
+                  >
+                    BPN ROKAN HULU
+                  </span>
+                </div>
+
+                <div
+                  class="relative z-10 flex items-end justify-between gap-4 pt-12"
+                >
+                  <div>
+                    <h4
+                      class="font-jakarta text-xl font-bold text-white leading-snug"
+                    >
+                      Dokumentasi<br />Arsip 
+                    </h4>
+                    <p
+                      class="font-montserrat text-[10px] uppercase tracking-[0.18em] text-gray-400 mt-2"
+                    >
+                      KERJA PRAKTIK (2025)<br />ADMINISTRASI &amp; SOP
+                    </p>
+                  </div>
+                  <span
+                    class="w-10 h-10 rounded-full border border-white/25 bg-black/40 group-hover:bg-white group-hover:text-obsidian flex items-center justify-center text-white transition duration-300 shrink-0"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. GREEN POLICING DESA LANGKAN -->
+        <div id="green-policing" class="space-y-6 pt-4">
+          <div class="ref-card spotlight-card p-6 sm:p-8 space-y-5">
+            <div
+              class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-white/10 pb-5 gap-4"
+            >
+              <div>
+                <span
+                  class="font-montserrat text-[11px] text-gray-400 font-semibold uppercase tracking-[0.22em]"
+                  >Kegiatan Relawan (2026)</span
+                >
+                <h3
+                  class="font-jakarta text-xl sm:text-2xl font-bold text-white mt-1"
+                >
+                  Green Policing Desa Langkan
+                </h3>
+                <p class="text-sm text-gray-400 font-jakarta mt-0.5">
+                  Aksi Penghijauan &amp; Pelestarian Lingkungan
+                </p>
+              </div>
+              <span
+                class="font-montserrat text-[11px] bg-white/[0.06] text-gray-200 px-3.5 py-1.5 rounded border border-white/15 uppercase tracking-[0.16em] font-semibold"
+              >
+                Desa Langkan
+              </span>
+            </div>
+
+            <p
+              class="text-gray-300 text-xs sm:text-sm font-jakarta leading-relaxed"
+            >
+              Berpartisipasi dalam aksi kepedulian lingkungan dan penghijauan di
+              Desa Langkan melalui program Green Policing untuk membangun
+              kesadaran pelestarian ekosistem dan keberlanjutan lingkungan.
+            </p>
+
+            <div
+              class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded bg-white/[0.03] border border-white/10 font-jakarta text-xs italic text-gray-200"
+            >
+              <svg
+                class="w-4 h-4 text-gray-400 shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path
+                  d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z"
+                />
+                <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+              </svg>
+              <span>"Menanam hari ini, menjaga masa depan"</span>
+            </div>
+          </div>
+
+          <!-- 3 FOTO DOKUMENTASI GREEN POLICING -->
+          <div>
+            <span
+              class="font-montserrat text-[11px] font-semibold text-gray-400 uppercase tracking-[0.2em] mb-4 block"
+            >
+              Arsip Foto Green Policing (2026):
+            </span>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+              <!-- Foto Green 1 -->
+              <div
+                class="ref-card spotlight-card group cursor-pointer h-[320px] flex flex-col justify-between p-5 relative"
+                onclick="
+                  openLightbox(
+                    'greenpolicing-1.jpeg',
+                    'Arsip Hijau  — Green Policing Desa Langkan',
+                  )
+                "
+              >
+                <img
+                  src="greenpolicing-1.jpeg"
+                  alt="Green 1"
+                  class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-65 group-hover:opacity-80"
+                  onerror="
+                    this.src =
+                      'https://images.unsplash.com/photo-1542601906990-b4d3fb778b09?w=600&auto=format&fit=crop&q=80'
+                  "
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-[#111215] via-[#111215]/45 to-transparent"
+                ></div>
+
+                <div class="relative z-10 flex justify-between items-center">
+                  <span
+                    class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-300 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10"
+                  >
+                    DESA LANGKAN
+                  </span>
+                </div>
+
+                <div
+                  class="relative z-10 flex items-end justify-between gap-4 pt-12"
+                >
+                  <div>
+                    <h4
+                      class="font-jakarta text-xl font-bold text-white leading-snug"
+                    >
+                      Arsip Hijau<br />
+                    </h4>
+                    <p
+                      class="font-montserrat text-[10px] uppercase tracking-[0.18em] text-gray-400 mt-2"
+                    >
+                      GREEN POLICING (2026)<br />AKSI PENGHIJAUAN
+                    </p>
+                  </div>
+                  <span
+                    class="w-10 h-10 rounded-full border border-white/25 bg-black/40 group-hover:bg-white group-hover:text-obsidian flex items-center justify-center text-white transition duration-300 shrink-0"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Foto Green 2 -->
+              <div
+                class="ref-card spotlight-card group cursor-pointer h-[320px] flex flex-col justify-between p-5 relative"
+                onclick="
+                  openLightbox(
+                    'greenpolicing-2.jpeg',
+                    'Arsip Hijau  — Green Policing Desa Langkan',
+                  )
+                "
+              >
+                <img
+                  src="greenpolicing-2.jpeg"
+                  alt="Green 2"
+                  class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-65 group-hover:opacity-80"
+                  onerror="
+                    this.src =
+                      'https://images.unsplash.com/photo-1592417817098-8f3d691a4bf5?w=600&auto=format&fit=crop&q=80'
+                  "
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-[#111215] via-[#111215]/45 to-transparent"
+                ></div>
+
+                <div class="relative z-10 flex justify-between items-center">
+                  <span
+                    class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-300 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10"
+                  >
+                    DESA LANGKAN
+                  </span>
+                </div>
+
+                <div
+                  class="relative z-10 flex items-end justify-between gap-4 pt-12"
+                >
+                  <div>
+                    <h4
+                      class="font-jakarta text-xl font-bold text-white leading-snug"
+                    >
+                      Arsip Hijau<br />
+                    </h4>
+                    <p
+                      class="font-montserrat text-[10px] uppercase tracking-[0.18em] text-gray-400 mt-2"
+                    >
+                      GREEN POLICING (2026)<br />PELESTARIAN LINGKUNGAN
+                    </p>
+                  </div>
+                  <span
+                    class="w-10 h-10 rounded-full border border-white/25 bg-black/40 group-hover:bg-white group-hover:text-obsidian flex items-center justify-center text-white transition duration-300 shrink-0"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+
+              <!-- Foto Green 3 -->
+              <div
+                class="ref-card spotlight-card group cursor-pointer h-[320px] flex flex-col justify-between p-5 relative"
+                onclick="
+                  openLightbox(
+                    'greenpolicing-3.jpeg',
+                    'Arsip Hijau  — Green Policing Desa Langkan',
+                  )
+                "
+              >
+                <img
+                  src="greenpolicing-3.jpeg"
+                  alt="Green 3"
+                  class="absolute inset-0 w-full h-full object-cover transition duration-700 group-hover:scale-105 opacity-65 group-hover:opacity-80"
+                  onerror="
+                    this.src =
+                      'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=600&auto=format&fit=crop&q=80'
+                  "
+                />
+                <div
+                  class="absolute inset-0 bg-gradient-to-t from-[#111215] via-[#111215]/45 to-transparent"
+                ></div>
+
+                <div class="relative z-10 flex justify-between items-center">
+                  <span
+                    class="font-montserrat text-[10px] uppercase tracking-[0.2em] text-gray-300 bg-black/50 backdrop-blur-sm px-2.5 py-1 rounded border border-white/10"
+                  >
+                    DESA LANGKAN
+                  </span>
+                </div>
+
+                <div
+                  class="relative z-10 flex items-end justify-between gap-4 pt-12"
+                >
+                  <div>
+                    <h4
+                      class="font-jakarta text-xl font-bold text-white leading-snug"
+                    >
+                      Arsip Hijau<br />
+                    </h4>
+                    <p
+                      class="font-montserrat text-[10px] uppercase tracking-[0.18em] text-gray-400 mt-2"
+                    >
+                      GREEN POLICING (2026)<br />KEBERLANJUTAN EKOSISTEM
+                    </p>
+                  </div>
+                  <span
+                    class="w-10 h-10 rounded-full border border-white/25 bg-black/40 group-hover:bg-white group-hover:text-obsidian flex items-center justify-center text-white transition duration-300 shrink-0"
+                  >
+                    <svg
+                      class="w-4 h-4"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="2"
+                    >
+                      <line x1="7" y1="17" x2="17" y2="7"></line>
+                      <polyline points="7 7 17 7 17 17"></polyline>
+                    </svg>
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BAGIAN 03 & BAGIAN 02: ASYMMETRIC 2-COLUMN SPLIT (100% Matching "CORE CAPABILITIES" + "TOOLS & TECHNOLOGIES" + "CERTIFICATIONS & EDUCATION" in Reference) -->
+    <section id="keahlian" class="max-w-6xl mx-auto px-6 py-14 reveal">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10">
+        <!-- LEFT COLUMN (6 Cols): BAGIAN 03 — KOMPETENSI & ALAT (SOFT SKILL 2x3 ICON GRID LIKE "CORE CAPABILITIES") -->
+        <div class="lg:col-span-6 flex flex-col justify-between">
+          <div>
+            <div
+              class="flex items-center justify-between pb-4 border-b border-white/10 mb-8"
+            >
+              <div class="flex items-center gap-3">
+                <h2
+                  class="font-montserrat text-sm font-bold uppercase tracking-[0.22em] text-white"
+                >
+                  Kompetensi &amp; Alat — Soft Skill
+                </h2>
+              </div>
+            </div>
+
+            <!-- 2x3 Architectural Icon Grid Matching Reference "CORE CAPABILITIES" -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-8 gap-y-9">
+              <!-- Soft Skill 1: Disiplin -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <polyline points="12 6 12 12 16 14" />
+                  </svg>
+                </div>
+                <div>
+                  <h3
+                    class="font-montserrat text-xs font-bold uppercase tracking-[0.16em] text-white"
+                  >
+                    Disiplin
+                  </h3>
+                  <p
+                    class="font-jakarta text-xs text-gray-400 mt-1.5 leading-relaxed"
+                  >
+                    Konsisten menjalankan prosedur kerja (SOP) dan ketepatan
+                    waktu operasional.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Soft Skill 2: Komunikasi -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <path
+                      d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+                    />
+                  </svg>
+                </div>
+                <div>
+                  <h3
+                    class="font-montserrat text-xs font-bold uppercase tracking-[0.16em] text-white"
+                  >
+                    Komunikasi
+                  </h3>
+                  <p
+                    class="font-jakarta text-xs text-gray-400 mt-1.5 leading-relaxed"
+                  >
+                    Penyampaian informasi teknis dan administrasi secara jelas
+                    antar divisi.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Soft Skill 3: Kerja Tim -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2" />
+                    <circle cx="9" cy="7" r="4" />
+                    <path d="M23 21v-2a4 4 0 0 0-3-3.87" />
+                    <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+                  </svg>
+                </div>
+                <div>
+                  <h3
+                    class="font-montserrat text-xs font-bold uppercase tracking-[0.16em] text-white"
+                  >
+                    Kerja Tim
+                  </h3>
+                  <p
+                    class="font-jakarta text-xs text-gray-400 mt-1.5 leading-relaxed"
+                  >
+                    Berkolaborasi aktif bersama pegawai dalam mendukung
+                    kelancaran aktivitas kantor.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Soft Skill 4: Bertanggung Jawab -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                    <polyline points="9 12 11 14 15 10" />
+                  </svg>
+                </div>
+                <div>
+                  <h3
+                    class="font-montserrat text-xs font-bold uppercase tracking-[0.16em] text-white"
+                  >
+                    Bertanggung Jawab
+                  </h3>
+                  <p
+                    class="font-jakarta text-xs text-gray-400 mt-1.5 leading-relaxed"
+                  >
+                    Menjaga akurasi verifikasi data operasional serta distribusi
+                    berkas penting.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Soft Skill 5: Adaptif -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <polygon points="12 2 2 7 12 12 22 7 12 2" />
+                    <polyline points="2 17 12 22 22 17" />
+                    <polyline points="2 12 12 17 22 12" />
+                  </svg>
+                </div>
+                <div>
+                  <h3
+                    class="font-montserrat text-xs font-bold uppercase tracking-[0.16em] text-white"
+                  >
+                    Adaptif
+                  </h3>
+                  <p
+                    class="font-jakarta text-xs text-gray-400 mt-1.5 leading-relaxed"
+                  >
+                    Cepat menyesuaikan diri dengan sistem kerja instansi maupun
+                    teknologi baru.
+                  </p>
+                </div>
+              </div>
+
+              <!-- Soft Skill 6: Manajemen Waktu -->
+              <div class="flex items-start gap-4">
+                <div
+                  class="w-10 h-10 rounded-lg bg-white/[0.03] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                >
+                  <svg
+                    class="w-5 h-5"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.6"
+                  >
+                    <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
+                    <line x1="16" y1="2" x2="16" y2="6" />
+                    <line x1="8" y1="2" x2="8" y2="6" />
+                    <line x1="3" y1="10" x2="21" y2="10" />
+                  </svg>
+                </div>
+                <div>
+                  <h3
+                    class="font-montserrat text-xs font-bold uppercase tracking-[0.16em] text-white"
+                  >
+                    Manajemen Waktu
+                  </h3>
+                  <p
+                    class="font-jakarta text-xs text-gray-400 mt-1.5 leading-relaxed"
+                  >
+                    Menyelesaikan target administrasi, troubleshooting, dan
+                    proyek web tepat jadwal.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN (6 Cols): HARD SKILL & SOFTWARE ("TOOLS & TECHNOLOGIES") + BAGIAN 02 RIWAYAT PENDIDIKAN ("CERTIFICATIONS & EDUCATION") -->
+        <div class="lg:col-span-6 space-y-8">
+          <!-- Top Box: Hard Skill & Software (Matching "TOOLS & TECHNOLOGIES" Panel in Reference) -->
+          <div>
+            <div
+              class="flex items-center justify-between pb-4 border-b border-white/10 mb-6"
+            >
+              <h3
+                class="font-montserrat text-sm font-bold uppercase tracking-[0.22em] text-white"
+              >
+                Hard Skill &amp; Software
+              </h3>
+            </div>
+
+            <div class="ref-card spotlight-card p-6">
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                <!-- Tool 1 -->
+                <div
+                  class="flex items-center gap-3 p-2.5 rounded bg-white/[0.02] border border-white/[0.06]"
+                >
+                  <span
+                    class="w-8 h-8 rounded bg-white/[0.06] flex items-center justify-center font-montserrat text-xs font-bold text-white shrink-0"
+                    >MS</span
+                  >
+                  <span class="font-jakarta text-xs text-gray-200 leading-tight"
+                    >MS Office (Word, Excel, PPT)</span
+                  >
+                </div>
+
+                <!-- Tool 2 -->
+                <div
+                  class="flex items-center gap-3 p-2.5 rounded bg-white/[0.02] border border-white/[0.06]"
+                >
+                  <span
+                    class="w-8 h-8 rounded bg-white/[0.06] flex items-center justify-center font-montserrat text-xs font-bold text-white shrink-0"
+                    >LAN</span
+                  >
+                  <span class="font-jakarta text-xs text-gray-200 leading-tight"
+                    >Jaringan LAN</span
+                  >
+                </div>
+
+                <!-- Tool 3 -->
+                <div
+                  class="flex items-center gap-3 p-2.5 rounded bg-white/[0.06] border border-white/20"
+                >
+                  <span
+                    class="w-8 h-8 rounded bg-white text-obsidian flex items-center justify-center font-montserrat text-xs font-extrabold shrink-0"
+                    >Lv</span
+                  >
+                  <span
+                    class="font-jakarta text-xs font-semibold text-white leading-tight"
+                    >Laravel</span
+                  >
+                </div>
+
+                <!-- Tool 4 -->
+                <div
+                  class="flex items-center gap-3 p-2.5 rounded bg-white/[0.02] border border-white/[0.06]"
+                >
+                  <span
+                    class="w-8 h-8 rounded bg-white/[0.06] flex items-center justify-center font-montserrat text-xs font-bold text-white shrink-0"
+                    >PHP</span
+                  >
+                  <span class="font-jakarta text-xs text-gray-200 leading-tight"
+                    >PHP</span
+                  >
+                </div>
+
+                <!-- Tool 5 -->
+                <div
+                  class="flex items-center gap-3 p-2.5 rounded bg-white/[0.02] border border-white/[0.06]"
+                >
+                  <span
+                    class="w-8 h-8 rounded bg-white/[0.06] flex items-center justify-center font-montserrat text-xs font-bold text-white shrink-0"
+                    >SQL</span
+                  >
+                  <span class="font-jakarta text-xs text-gray-200 leading-tight"
+                    >MySQL</span
+                  >
+                </div>
+
+                <!-- Tool 6 -->
+                <div
+                  class="flex items-center gap-3 p-2.5 rounded bg-white/[0.02] border border-white/[0.06]"
+                >
+                  <span
+                    class="w-8 h-8 rounded bg-white/[0.06] flex items-center justify-center font-montserrat text-xs font-bold text-white shrink-0"
+                    >&lt;/&gt;</span
+                  >
+                  <span class="font-jakarta text-xs text-gray-200 leading-tight"
+                    >HTML &amp; CSS</span
+                  >
+                </div>
+
+                <!-- Tool 7 -->
+                <div
+                  class="flex items-center gap-3 p-2.5 rounded bg-white/[0.02] border border-white/[0.06] sm:col-span-3"
+                >
+                  <span
+                    class="w-8 h-8 rounded bg-white/[0.06] flex items-center justify-center font-montserrat text-xs font-bold text-white shrink-0"
+                    >VS</span
+                  >
+                  <span class="font-jakarta text-xs text-gray-200 leading-tight"
+                    >VS Code</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Box: BAGIAN 02 — RIWAYAT PENDIDIKAN (Matching "CERTIFICATIONS & EDUCATION" Stacked Cards in Reference) -->
+          <div id="pendidikan" class="pt-2">
+            <div
+              class="flex items-center justify-between pb-3 border-b border-white/10 mb-4"
+            >
+              <div class="flex items-center gap-2.5">
+                <h2
+                  class="font-montserrat text-xs font-bold uppercase tracking-[0.22em] text-white"
+                >
+                  Riwayat Pendidikan
+                </h2>
+              </div>
+            </div>
+
+            <div class="space-y-3">
+              <!-- 1. D3 Unri -->
+              <div
+                class="ref-card spotlight-card p-4 flex items-center justify-between gap-4"
+              >
+                <div class="flex items-center gap-3.5">
+                  <div
+                    class="w-10 h-10 rounded bg-white/[0.05] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    >
+                      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+                      <path d="M6 12v5c3 3 9 3 12 0v-5" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span
+                      class="font-montserrat text-[10px] text-gray-400 font-semibold uppercase tracking-[0.18em] block"
+                      >PERGURUAN TINGGI</span
+                    >
+                    <h3
+                      class="font-jakarta text-sm sm:text-base font-bold text-white"
+                    >
+                      D3 Manajemen Informatika
+                    </h3>
+                    <p class="text-xs text-gray-400 font-jakarta">
+                      Universitas Riau &bull; IPK 3.55
+                    </p>
+                  </div>
+                </div>
+                <span
+                  class="font-montserrat text-[11px] bg-white text-obsidian font-bold px-2.5 py-1 rounded shrink-0"
+                >
+                  2023 – 2026
+                </span>
+              </div>
+
+              <!-- 2. SMA Bernas -->
+              <div
+                class="ref-card spotlight-card p-4 flex items-center justify-between gap-4"
+              >
+                <div class="flex items-center gap-3.5">
+                  <div
+                    class="w-10 h-10 rounded bg-white/[0.05] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    >
+                      <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" />
+                      <path
+                        d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"
+                      />
+                    </svg>
+                  </div>
+                  <div>
+                    <span
+                      class="font-montserrat text-[10px] text-gray-400 font-semibold uppercase tracking-[0.18em] block"
+                      >SEKOLAH MENENGAH ATAS</span
+                    >
+                    <h3
+                      class="font-jakarta text-sm sm:text-base font-bold text-white"
+                    >
+                      SMA N BERNAS BINSUS
+                    </h3>
+                    <p class="text-xs text-gray-400 font-jakarta">
+                      Provinsi Riau
+                    </p>
+                  </div>
+                </div>
+                <span
+                  class="font-montserrat text-[11px] bg-white/[0.06] text-gray-300 border border-white/15 px-2.5 py-1 rounded shrink-0"
+                >
+                  2020 – 2023
+                </span>
+              </div>
+
+              <!-- 3. SMP N 2 Sungai Penuh -->
+              <div
+                class="ref-card spotlight-card p-4 flex items-center justify-between gap-4"
+              >
+                <div class="flex items-center gap-3.5">
+                  <div
+                    class="w-10 h-10 rounded bg-white/[0.05] border border-white/10 flex items-center justify-center text-gray-300 shrink-0"
+                  >
+                    <svg
+                      class="w-5 h-5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.6"
+                    >
+                      <rect x="4" y="4" width="16" height="16" rx="2" />
+                      <line x1="9" y1="9" x2="15" y2="9" />
+                      <line x1="9" y1="13" x2="15" y2="13" />
+                      <line x1="9" y1="17" x2="12" y2="17" />
+                    </svg>
+                  </div>
+                  <div>
+                    <span
+                      class="font-montserrat text-[10px] text-gray-400 font-semibold uppercase tracking-[0.18em] block"
+                      >SEKOLAH MENENGAH PERTAMA</span
+                    >
+                    <h3
+                      class="font-jakarta text-sm sm:text-base font-bold text-white"
+                    >
+                      SMP N 2 SUNGAI PENUH
+                    </h3>
+                    <p class="text-xs text-gray-400 font-jakarta">
+                      Kota Sungai Penuh
+                    </p>
+                  </div>
+                </div>
+                <span
+                  class="font-montserrat text-[11px] bg-white/[0.06] text-gray-300 border border-white/15 px-2.5 py-1 rounded shrink-0"
+                >
+                  2017 – 2020
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5-COLUMN PROCESS STRIP (100% Matching "MY DESIGN PROCESS 01 - 05" in Reference Image) -->
+    <section class="max-w-6xl mx-auto px-6 py-10 reveal">
+      <div
+        class="flex items-center justify-between pb-4 border-b border-white/10 mb-6"
+      >
+        <h2
+          class="font-montserrat text-xs font-bold uppercase tracking-[0.22em] text-white"
+        >
+          ALUR KERJA OPERASIONAL &amp; SISTEM INFORMASI
+        </h2>
+      </div>
+
+      <div
+        class="ref-card spotlight-card grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 divide-y sm:divide-y-0 sm:divide-x divide-white/10"
+      >
+        <!-- Step 01 -->
+        <div class="p-6 flex flex-col justify-between space-y-6">
+          <div>
+            <div
+              class="font-montserrat text-xs font-bold uppercase tracking-[0.18em] text-white"
+            >
+              <span class="text-gray-500 mr-1.5">01</span> DATA &amp; EXCEL
+            </div>
+            <p class="font-jakarta text-xs text-gray-400 mt-2 leading-relaxed">
+              Pengelolaan, verifikasi, dan pembaruan data operasional
+              menggunakan Microsoft Excel.
+            </p>
+          </div>
+          <svg
+            class="w-6 h-6 text-gray-400"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <circle cx="11" cy="11" r="8" />
+            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+          </svg>
+        </div>
+
+        <!-- Step 02 -->
+        <div class="p-6 flex flex-col justify-between space-y-6">
+          <div>
+            <div
+              class="font-montserrat text-xs font-bold uppercase tracking-[0.18em] text-white"
+            >
+              <span class="text-gray-500 mr-1.5">02</span> JARINGAN LAN
+            </div>
+            <p class="font-jakarta text-xs text-gray-400 mt-2 leading-relaxed">
+              Pemasangan, penataan kabel jaringan LAN, dan pengecekan
+              konektivitas komputer kerja.
+            </p>
+          </div>
+          <svg
+            class="w-6 h-6 text-gray-400"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <circle cx="12" cy="12" r="9" />
+            <circle cx="12" cy="12" r="4" />
+            <line x1="12" y1="3" x2="12" y2="5" />
+          </svg>
+        </div>
+
+        <!-- Step 03 -->
+        <div class="p-6 flex flex-col justify-between space-y-6">
+          <div>
+            <div
+              class="font-montserrat text-xs font-bold uppercase tracking-[0.18em] text-white"
+            >
+              <span class="text-gray-500 mr-1.5">03</span> SOP BERKAS
+            </div>
+            <p class="font-jakarta text-xs text-gray-400 mt-2 leading-relaxed">
+              Administrasi perkantoran serta distribusi dokumen sesuai prosedur
+              kerja (SOP).
+            </p>
+          </div>
+          <svg
+            class="w-6 h-6 text-gray-400"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path d="M12 19l7-7 3 3-7 7-3-3z" />
+            <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+          </svg>
+        </div>
+
+        <!-- Step 04 -->
+        <div class="p-6 flex flex-col justify-between space-y-6">
+          <div>
+            <div
+              class="font-montserrat text-xs font-bold uppercase tracking-[0.18em] text-white"
+            >
+              <span class="text-gray-500 mr-1.5">04</span> SISTEM WEB
+            </div>
+            <p class="font-jakarta text-xs text-gray-400 mt-2 leading-relaxed">
+              Perancangan aplikasi web menggunakan Laravel, PHP, MySQL, serta
+              HTML &amp; CSS.
+            </p>
+          </div>
+          <svg
+            class="w-6 h-6 text-gray-400"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <polyline points="16 18 22 12 16 6" />
+            <polyline points="8 6 2 12 8 18" />
+            <line x1="14" y1="4" x2="10" y2="20" />
+          </svg>
+        </div>
+
+        <!-- Step 05 -->
+        <div class="p-6 flex flex-col justify-between space-y-6">
+          <div>
+            <div
+              class="font-montserrat text-xs font-bold uppercase tracking-[0.18em] text-white"
+            >
+              <span class="text-gray-500 mr-1.5">05</span> IMPLEMENTASI
+            </div>
+            <p class="font-jakarta text-xs text-gray-400 mt-2 leading-relaxed">
+              Dukungan penuh terhadap kelancaran operasional instansi &amp;
+              pelaporan berkas.
+            </p>
+          </div>
+          <svg
+            class="w-6 h-6 text-gray-400"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="1.5"
+          >
+            <path
+              d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"
+            />
+            <path
+              d="m12 15-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"
+            />
+          </svg>
+        </div>
+      </div>
+    </section>
+
+    <!-- KONTAK BANNER (100% Matching "LET'S CREATE SOMETHING EXTRAORDINARY" Card in Reference) -->
+    <section class="max-w-6xl mx-auto px-6 pt-8 pb-16 reveal">
+      <div
+        class="cta-metallic-beam rounded-xl p-8 sm:p-10 lg:p-12 relative overflow-hidden"
+      >
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center relative z-10"
+        >
+          <!-- Left Display Text -->
+          <div class="lg:col-span-5 space-y-2 relative" id="connect">
+            <span
+              class="font-montserrat text-[10px] font-bold text-gray-400 uppercase tracking-[0.24em] block"
+            >
+              PENGIRIMAN SURAT &amp; KONEKSI
+            </span>
+            <div class="flex items-center gap-3">
+              <h2
+                class="font-display text-4xl sm:text-5xl font-bold uppercase text-white tracking-tight leading-[1.05]"
+              >
+                Mari Terhubung &amp;<br />Berkolaborasi
+              </h2>
+              <svg
+                class="w-5 h-5 text-white shrink-0"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M12 2L14.2 9.8L22 12L14.2 14.2L12 22L9.8 14.2L2 12L9.8 9.8L12 2Z"
+                />
+              </svg>
+            </div>
+          </div>
+
+          <!-- Middle Pitch & Main CTA Button -->
+          <div class="lg:col-span-4 space-y-5">
+            <p
+              class="text-gray-300 font-jakarta text-xs sm:text-sm leading-relaxed"
+            >
+              Saya siap untuk berkontribusi dan berkembang bersama tim
+              profesional di perusahaan Anda.
+            </p>
+            <button
+              onclick="copyEmail()"
+              class="px-6 py-3.5 bg-[#e5e7eb] hover:bg-white text-obsidian font-montserrat font-bold text-[11px] uppercase tracking-[0.16em] rounded-[4px] inline-flex items-center gap-3 transition shadow-lg"
+            >
+              <span>SALIN SURAT ELEKTRONIK</span>
+              <svg
+                class="w-3.5 h-3.5"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.2"
+              >
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Right Direct Contact List with Left Hairline Divider -->
+          <div
+            class="lg:col-span-3 lg:border-l lg:border-white/15 lg:pl-7 space-y-3.5 text-xs font-jakarta"
+          >
+            <!-- Email -->
+            <button
+              onclick="copyEmail()"
+              class="flex items-center gap-3 text-gray-300 hover:text-white transition text-left w-full group"
+            >
+              <svg
+                class="w-4 h-4 text-gray-400 group-hover:text-white shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <rect x="2" y="4" width="20" height="16" rx="2" />
+                <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+              </svg>
+              <span id="emailText" class="truncate"
+                >ahmadfadhilfardian@gmail.com</span
+              >
+            </button>
+
+            <!-- WhatsApp -->
+            <a
+              href="https://wa.me/6281363127743"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-3 text-gray-300 hover:text-white transition group"
+            >
+              <svg
+                class="w-4 h-4 text-gray-400 group-hover:text-white shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path
+                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+                />
+              </svg>
+              <span>WhatsApp (+62 813-6312-7743)</span>
+            </a>
+
+            <!-- Location -->
+            <div class="flex items-center gap-3 text-gray-400">
+              <svg
+                class="w-4 h-4 text-gray-400 shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
+                <circle cx="12" cy="10" r="3" />
+              </svg>
+              <span>Riau, Indonesia</span>
+            </div>
+
+            <!-- LinkedIn -->
+            <a
+              href="https://www.linkedin.com/in/cvahmadfadhil"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="flex items-center gap-3 text-gray-300 hover:text-white transition group"
+            >
+              <svg
+                class="w-4 h-4 text-gray-400 group-hover:text-white shrink-0"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              >
+                <circle cx="12" cy="12" r="10" />
+                <line x1="2" y1="12" x2="22" y2="12" />
+                <path
+                  d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"
+                />
+              </svg>
+              <span>Profil LinkedIn</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Notification Toast -->
+        <div class="mt-4 text-center">
+          <p
+            id="notif"
+            class="font-montserrat text-xs text-obsidian opacity-0 pointer-events-none transition duration-300 font-semibold bg-white py-2 px-4 rounded shadow-lg inline-block"
+          >
+            Surat elektronik berhasil disalin!
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER (100% Matching Bottom Bar in Reference Image) -->
+    <footer class="border-t border-white/10 py-8">
+      <div
+        class="max-w-6xl mx-auto px-6 flex flex-col sm:flex-row items-center justify-between gap-4 font-montserrat text-[11px] text-gray-400 tracking-wider"
+      >
+        <p>
+          &copy; 2026 Ahmad Fadhil Fardian. Archival Dossier All Rights
+          Reserved.
+        </p>
+
+        <div class="flex items-center gap-5">
+          <span class="uppercase tracking-[0.2em] text-[10px] text-gray-500"
+            >MARI TERHUBUNG</span
+          >
+          <a
+            href="https://www.linkedin.com/in/cvahmadfadhil"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-white transition"
+            aria-label="LinkedIn"
+          >
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor">
+              <path
+                d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"
+              />
+            </svg>
+          </a>
+          <a
+            href="https://wa.me/6281363127743"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-white transition"
+            aria-label="WhatsApp"
+          >
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"
+              />
+            </svg>
+          </a>
+          <button
+            onclick="copyEmail()"
+            class="text-gray-400 hover:text-white transition"
+            aria-label="Salin Email"
+          >
+            <svg
+              class="w-4 h-4"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <rect x="2" y="4" width="20" height="16" rx="2" />
+              <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </footer>
+
+    <!-- LIGHTBOX MODAL FOR ARCHIVAL PHOTOS -->
+    <div
+      id="lightbox"
+      class="fixed inset-0 z-50 bg-black/90 backdrop-blur-md hidden items-center justify-center p-4 opacity-0 transition-opacity duration-300"
+      onclick="closeLightbox()"
+    >
+      <div
+        class="max-w-4xl w-full bg-[#16181f] border border-white/15 rounded-xl overflow-hidden shadow-2xl"
+        onclick="event.stopPropagation()"
+      >
+        <div
+          class="flex items-center justify-between px-5 py-3.5 border-b border-white/10"
+        >
+          <span
+            id="lightboxCaption"
+            class="font-montserrat text-xs uppercase tracking-[0.18em] text-gray-200"
+          ></span>
+          <button
+            onclick="closeLightbox()"
+            class="text-gray-400 hover:text-white p-1"
+          >
+            <svg
+              class="w-5 h-5"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <line x1="18" y1="6" x2="6" y2="18"></line>
+              <line x1="6" y1="6" x2="18" y2="18"></line>
+            </svg>
+          </button>
+        </div>
+        <div class="p-4 bg-[#0f1014] flex justify-center">
+          <img
+            id="lightboxImg"
+            src=""
+            alt="Preview Dokumentasi"
+            class="max-h-[75vh] w-auto object-contain rounded"
+          />
+        </div>
+      </div>
+    </div>
+
+    <!-- SCRIPTS (Copy Email, Scroll Reveal & Cursor Spotlight) -->
+    <script>
+      function copyEmail() {
+        const email = "ahmadfadhilfardian@gmail.com";
+        navigator.clipboard.writeText(email).then(() => {
+          const notif = document.getElementById("notif");
+          notif.style.opacity = "1";
+          setTimeout(() => {
+            notif.style.opacity = "0";
+          }, 2200);
+        });
+      }
+
+      // Lightbox Preview
+      function openLightbox(src, caption) {
+        const modal = document.getElementById("lightbox");
+        const img = document.getElementById("lightboxImg");
+        const cap = document.getElementById("lightboxCaption");
+        img.src = src;
+        cap.textContent = caption;
+        modal.classList.remove("hidden");
+        modal.classList.add("flex");
+        requestAnimationFrame(() => {
+          modal.classList.remove("opacity-0");
+          modal.classList.add("opacity-100");
+        });
+      }
+
+      function closeLightbox() {
+        const modal = document.getElementById("lightbox");
+        modal.classList.remove("opacity-100");
+        modal.classList.add("opacity-0");
+        setTimeout(() => {
+          modal.classList.remove("flex");
+          modal.classList.add("hidden");
+        }, 300);
+      }
+
+      // Scroll Reveal Observer
+      const revealElements = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("active");
+            }
+          });
+        },
+        { threshold: 0.12 },
+      );
+
+      revealElements.forEach((el) => revealObserver.observe(el));
+
+      // Interactive Metallic Card Spotlight Effect
+      document.querySelectorAll(".spotlight-card").forEach((card) => {
+        card.addEventListener("mousemove", (e) => {
+          const rect = card.getBoundingClientRect();
+          const x = e.clientX - rect.left;
+          const y = e.clientY - rect.top;
+          card.style.setProperty("--mouse-x", `${x}px`);
+          card.style.setProperty("--mouse-y", `${y}px`);
+        });
+      });
+    </script>
+  </body>
+</html>
